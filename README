@@ -1,0 +1,3 @@
+Autofilter is a javascript library that uses the value from a text field to
+automatically filter out elements in an associated block element that don't
+match the search criteria.
