@@ -15,20 +15,51 @@
 <div id="testlog"> </div>
 
 <!-- here go any elements you do the testing on -->
+<input id="af_input" type="text" autocomplete="off" />
+<ul id="af_options">
+  <li id="scorsese">Martin Scorsese</li>
+  <li>Akira Kurosawa</li>
+	<li>Federico Fellini</li>
+	<li>Jean-Luc Godard</li>
+	<li>Francois Truffaut</li>
+	<li>Ingmar Bergman</li>
+	<li>Jean Renoir</li>
+	<li>Woody Allen</li>
+</ul>
 
 <!-- Tests -->
 <script type="text/javascript" language="javascript">
 // <![CDATA[
-Test.context("BDD-style testing",{
+
+var af = new Autofilter('af_input', 'af_options');
+
+Test.context("An autofilter with nothing entered",{
   
   setup: function() {
-
+    Object.extend(af, Test.BDDMethods);
   },
   
   teardown: function() {
     
-  }
+  },
+
+  'should be an autofilter': function(){
+    assertInstanceOf(Autofilter, af);
+  },
+
+  'should have an option_container': function(){
+    assertEqual(af.option_container, $('af_options'));
+  }, 
   
+  'should have an element': function(){
+    assertEqual($('af_input'), af.element);
+  },
+  
+  'should have 8 option elements': function(){
+    af.option_elements.shouldBeAn(Array);
+    af.option_elements.size().shouldEqual(8);
+    assertEqual($('scorsese'), af.option_elements.first());
+  }
 });
 // ]]>
 </script>
