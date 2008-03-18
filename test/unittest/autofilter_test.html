@@ -33,7 +33,7 @@
 
 var af = new Autofilter('af_input', 'af_options');
 
-Test.context("An autofilter with nothing entered",{
+Test.context("An autofilter",{
   
   setup: function() {
     Object.extend(af, Test.BDDMethods);
@@ -59,6 +59,22 @@ Test.context("An autofilter with nothing entered",{
     af.option_elements.shouldBeAn(Array);
     af.option_elements.size().shouldEqual(8);
     assertEqual($('scorsese'), af.option_elements.first());
+  },
+  
+  'should have 0 hidden options': function(){
+    $$("#af_options > [style*='display: none;']").size().shouldEqual(0);
+  },
+  
+  'should have 2 visible options after entering F': function(){
+    $('af_input').value = 'F'
+    af.filter_options();
+    
+    wait(500, function() {
+      $$("#af_options > [style*='display: none;']").size().shouldEqual(6);
+      wait(500, function(){
+        $('af_input').value = '';
+      });
+    });
   }
 });
 // ]]>
