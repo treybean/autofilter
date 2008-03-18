@@ -67,12 +67,14 @@ Test.context("An autofilter",{
   
   'should have 2 visible options after entering F': function(){
     $('af_input').value = 'F'
-    af.filter_options();
+    af.filter_options();//have to manually call this because we're using keydown event
     
     wait(500, function() {
       $$("#af_options > [style*='display: none;']").size().shouldEqual(6);
       wait(500, function(){
+        //cleanup
         $('af_input').value = '';
+        af.filter_options();
       });
     });
   }
