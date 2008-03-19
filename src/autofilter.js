@@ -4,7 +4,7 @@ var Autofilter = Class.create({
     this.option_container = $(option_container);
     this.option_elements = this.option_container.childElements();
     
-    Event.observe(this.element, 'keydown', this.filter_options.bindAsEventListener(this));
+    Event.observe(this.element, 'keyup', this.filter_options.bindAsEventListener(this));
   },
   
   filter_options: function() {
