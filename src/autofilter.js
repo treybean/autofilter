@@ -8,8 +8,9 @@ var Autofilter = Class.create({
   },
   
   filter_options: function() {
+    var input = this.element;
     split_options = this.option_elements.partition(function(n){
-      return n.innerHTML.match(new RegExp($F('af_input'), "i"));// == null ? false : true;
+      return n.innerHTML.match(new RegExp(input.value, "i"));// == null ? false : true;
     });
     
     split_options[1].invoke('hide');
