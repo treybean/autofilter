@@ -15,7 +15,11 @@ var Autofilter = Class.create({
       
       if(descendants.size() > 0){
         return descendants.any(function(d){
-          return d.innerHTML.match(new RegExp(input, "i"));
+          if(d.descendants().size() == 0){
+            return d.innerHTML.match(new RegExp(input, "i"));
+          }else{
+            return false;
+          }
         });
       }else{
         return n.innerHTML.match(new RegExp(input, "i"));

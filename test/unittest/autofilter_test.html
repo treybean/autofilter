@@ -56,12 +56,68 @@
 	  <div class="name">Woody Allen</div>
 	</li>
 </ul>
+
+
+<br/>
+<br/>
+<input id="af_input3" type="text" autocomplete="off" />
+<ul id="af_options3">
+  <li id="scorsese3">
+    <div class="user_info">
+      <div class="fname">Martin</div>
+      <div class="lname">Scorsese</div>
+    </div>
+  </li>
+  <li>
+    <div class="user_info">
+      <div class="fname">Akira</div>
+      <div class="lname">Kurosawa</div>
+    </div>
+  </li>
+	<li>
+	  <div class="user_info">
+      <div class="fname">Federico</div>
+      <div class="lname">Fellini</div>
+    </div>
+	</li>
+	<li>
+	  <div class="user_info">
+      <div class="fname">Jean-Luc</div>
+      <div class="lname">Godard</div>
+    </div>
+	</li>
+	<li>
+	  <div class="user_info">
+      <div class="fname">Francois</div>
+      <div class="lname">Truffaut</div>
+    </div>
+	</li>
+	<li>
+	  <div class="user_info">
+      <div class="fname">Ingmar</div>
+      <div class="lname">Bergman</div>
+    </div>
+	</li>
+	<li>
+	  <div class="user_info">
+      <div class="fname">Jean</div>
+      <div class="lname">Renoir</div>
+    </div>
+	</li>
+	<li>
+	  <div class="user_info">
+      <div class="fname">Woody</div>
+      <div class="lname">Allen</div>
+    </div>
+	</li>
+</ul>
 <!-- Tests -->
 <script type="text/javascript" language="javascript">
 // <![CDATA[
 
 var af = new Autofilter('af_input', 'af_options');
 var af2 = new Autofilter('af_input2', 'af_options2');
+var af3 = new Autofilter('af_input3', 'af_options3');
 
 Test.context("An autofilter",{
   
@@ -135,7 +191,21 @@ Test.context("An autofilter",{
         af2.filter_options();
       });
     });
-  }
+  },
+  
+  'should match only innerHTML of elements with no descendants - using af3': function(){
+    $('af_input3').value = 'div'
+    af3.filter_options();//have to manually call this because we're using keydown event
+    
+    wait(500, function() {
+      $$("#af_options3 > [style*='display: none;']").size().shouldEqual(8);
+      wait(500, function(){
+        //cleanup
+        $('af_input3').value = '';
+        af3.filter_options();
+      });
+    });
+  },
 });
 // ]]>
 </script>
