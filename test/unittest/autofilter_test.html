@@ -31,7 +31,7 @@
 <br/>
 <input id="af_input2" type="text" autocomplete="off" />
 <ul id="af_options2">
-  <li id="scorsese">
+  <li id="scorsese2">
     <div class="name">Martin Scorsese</div>
   </li>
   <li>
@@ -115,6 +115,20 @@ Test.context("An autofilter",{
     
     wait(500, function() {
       $$("#af_options2 > [style*='display: none;']").size().shouldEqual(6);
+      wait(500, function(){
+        //cleanup
+        $('af_input2').value = '';
+        af2.filter_options();
+      });
+    });
+  },
+  
+  'should not match on tag names - using af2': function(){
+    $('af_input2').value = 'div'
+    af2.filter_options();//have to manually call this because we're using keydown event
+    
+    wait(500, function() {
+      $$("#af_options2 > [style*='display: none;']").size().shouldEqual(8);
       wait(500, function(){
         //cleanup
         $('af_input2').value = '';

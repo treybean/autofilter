@@ -8,9 +8,18 @@ var Autofilter = Class.create({
   },
   
   filter_options: function() {
-    var input = this.element;
+    var input = this.element.value;
+    
     split_options = this.option_elements.partition(function(n){
-      return n.innerHTML.match(new RegExp(input.value, "i"));// == null ? false : true;
+      var descendants = n.descendants();
+      
+      if(descendants.size() > 0){
+        return descendants.any(function(d){
+          return d.innerHTML.match(new RegExp(input, "i"));
+        });
+      }else{
+        return n.innerHTML.match(new RegExp(input, "i"));
+      }
     });
     
     split_options[1].invoke('hide');
