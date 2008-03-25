@@ -147,8 +147,8 @@ Test.context("An autofilter",{
     assertEqual($('scorsese'), af.option_elements.first());
   },
   
-  'should have 0 hidden options': function(){
-    $$("#af_options > [style*='display: none;']").size().shouldEqual(0);
+  'should have 1 hidden options': function(){
+    $$("#af_options > [style*='display: none;']").size().shouldEqual(1);
   },
   
   'should have 2 visible options after entering F': function(){
@@ -156,7 +156,7 @@ Test.context("An autofilter",{
     af.filter_options();//have to manually call this because we're using keydown event
     
     wait(500, function() {
-      $$("#af_options > [style*='display: none;']").size().shouldEqual(6);
+      $$("#af_options > [style*='display: none;']").size().shouldEqual(7);
       wait(500, function(){
         //cleanup
         $('af_input').value = '';
@@ -170,7 +170,7 @@ Test.context("An autofilter",{
     af2.filter_options();//have to manually call this because we're using keydown event
     
     wait(500, function() {
-      $$("#af_options2 > [style*='display: none;']").size().shouldEqual(6);
+      $$("#af_options2 > [style*='display: none;']").size().shouldEqual(7);
       wait(500, function(){
         //cleanup
         $('af_input2').value = '';
@@ -199,6 +199,21 @@ Test.context("An autofilter",{
     
     wait(500, function() {
       $$("#af_options3 > [style*='display: none;']").size().shouldEqual(8);
+      wait(500, function(){
+        //cleanup
+        $('af_input3').value = '';
+        af3.filter_options();
+      });
+    });
+  },
+  
+  'should show not found element - using af3': function(){
+    $('af_input3').value = 'div'
+    af3.filter_options();//have to manually call this because we're using keydown event
+    
+    wait(500, function() {
+      $$("#af_options3 > [style*='display: none;']").size().shouldEqual(8);
+      assert($$("#af_options3 > .not_found").first().visible());
       wait(500, function(){
         //cleanup
         $('af_input3').value = '';

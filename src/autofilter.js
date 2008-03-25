@@ -4,6 +4,9 @@ var Autofilter = Class.create({
     this.option_container = $(option_container);
     this.option_elements = this.option_container.childElements();
     
+    this.not_found_element = this.create_not_found_element();
+    this.option_container.insert(this.not_found_element);
+    
     Event.observe(this.element, 'keyup', this.filter_options.bindAsEventListener(this));
   },
   
@@ -28,5 +31,15 @@ var Autofilter = Class.create({
     
     split_options[1].invoke('hide');
     split_options[0].invoke('show');
+    split_options[0].size() > 0 ? this.not_found_element.hide() : this.not_found_element.show();
+  },
+  
+  create_not_found_element: function() {
+    var not_found = document.createElement(this.option_container.tagName.toLowerCase() == 'ul' ? 'li' : 'div');
+    not_found.addClassName('not_found');
+    not_found.appendChild(document.createTextNode('Not found'));
+    not_found.hide();
+    
+    return not_found;
   }
 });
